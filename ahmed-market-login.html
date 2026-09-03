@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed Market</title>
+<style>
+  :root{
+    --green-deep: #1F4D3A;
+    --green-mid: #2F6B4F;
+    --tomato: #D64545;
+    --cream: #FBF6EC;
+    --charcoal: #22271F;
+    --gold: #E6B655;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html, body{
+    height:100%;
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    background: var(--charcoal);
+    color: var(--charcoal);
+  }
+
+  .screen{
+    position:relative;
+    min-height:100vh;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  /* --- LOGIN SCREEN --- */
+  #login-screen{
+    background:
+      linear-gradient(160deg, rgba(31,77,58,0.92) 0%, rgba(31,77,58,0.75) 45%, rgba(34,39,31,0.55) 100%),
+      url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1600&auto=format&fit=crop')
+      center/cover no-repeat;
+  }
+
+  .login-card{
+    width: min(90vw, 380px);
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 44px 36px 38px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    position: relative;
+  }
+
+  .login-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:6px;
+    background: repeating-linear-gradient(90deg, var(--tomato) 0 18px, var(--gold) 18px 36px);
+  }
+
+  .brand{
+    text-align:center;
+    margin-bottom: 30px;
+  }
+
+  .brand .name{
+    font-size: 1.9rem;
+    letter-spacing: 0.5px;
+    color: var(--green-deep);
+    font-weight: 700;
+  }
+
+  .brand .tag{
+    margin-top: 6px;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--tomato);
+  }
+
+  form{ display:flex; flex-direction:column; gap:18px; }
+
+  label{
+    font-size: 0.78rem;
+    color: var(--charcoal);
+    margin-bottom: 6px;
+    display:block;
+    font-family: Georgia, serif;
+  }
+
+  input{
+    width:100%;
+    padding: 12px 13px;
+    border: 1.5px solid #C9BFA5;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    font-family: Georgia, serif;
+    background: #fff;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  input:focus{ border-color: var(--green-mid); }
+
+  .error{
+    font-size: 0.8rem;
+    color: var(--tomato);
+    min-height: 18px;
+    margin-top: -8px;
+  }
+
+  button.submit{
+    margin-top: 8px;
+    background: var(--green-deep);
+    color: var(--cream);
+    border: none;
+    padding: 13px;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    transition: background 0.2s ease;
+  }
+
+  button.submit:hover{ background: var(--green-mid); }
+
+  .hint{
+    text-align:center;
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: #6b6255;
+  }
+
+  /* --- WELCOME SCREEN --- */
+  #welcome-screen{
+    display:none;
+    background:
+      linear-gradient(180deg, rgba(20,30,22,0.35) 0%, rgba(20,30,22,0.75) 100%),
+      url('https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=1600&auto=format&fit=crop')
+      center/cover no-repeat;
+    text-align:center;
+    padding: 20px;
+  }
+
+  .welcome-box{
+    animation: rise 0.7s ease both;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(16px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .welcome-box .eyebrow{
+    color: var(--gold);
+    font-style: italic;
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+
+  .welcome-box h1{
+    font-weight: 700;
+    color: var(--cream);
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    line-height: 1.05;
+    text-shadow: 0 3px 18px rgba(0,0,0,0.5);
+  }
+
+  .welcome-box p{
+    margin-top: 18px;
+    color: var(--cream);
+    font-size: 1.05rem;
+    opacity: 0.9;
+  }
+
+  button.logout{
+    margin-top: 30px;
+    background: transparent;
+    border: 1.5px solid var(--cream);
+    color: var(--cream);
+    padding: 10px 22px;
+    font-size: 0.85rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    transition: all 0.2s ease;
+  }
+
+  button.logout:hover{ background: var(--cream); color: var(--green-deep); }
+</style>
+</head>
+<body>
+
+  <div id="login-screen" class="screen">
+    <div class="login-card">
+      <div class="brand">
+        <div class="name">Ahmed Market</div>
+        <div class="tag">fresh, every day</div>
+      </div>
+      <form id="login-form">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <div class="error" id="error-msg"></div>
+        <button type="submit" class="submit">Log in</button>
+      </form>
+      <div class="hint">Enter any email and password to continue</div>
+    </div>
+  </div>
+
+  <div id="welcome-screen" class="screen">
+    <div class="welcome-box">
+      <div class="eyebrow" id="welcome-email"></div>
+      <h1>Welcome to Ahmed Market</h1>
+      <p>We're glad you're here. Let's find what you need.</p>
+      <button class="logout" id="logout-btn">Log out</button>
+    </div>
+  </div>
+
+<script>
+  const form = document.getElementById('login-form');
+  const errorMsg = document.getElementById('error-msg');
+  const loginScreen = document.getElementById('login-screen');
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const welcomeEmail = document.getElementById('welcome-email');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if(!email || !password){
+      errorMsg.textContent = 'Please enter both email and password.';
+      return;
+    }
+
+    errorMsg.textContent = '';
+    welcomeEmail.textContent = email;
+    loginScreen.style.display = 'none';
+    welcomeScreen.style.display = 'flex';
+  });
+
+  logoutBtn.addEventListener('click', function(){
+    welcomeScreen.style.display = 'none';
+    loginScreen.style.display = 'flex';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
